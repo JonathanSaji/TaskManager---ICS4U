@@ -1,4 +1,4 @@
-
+package jhn;
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -9,6 +9,7 @@ public class Menu extends JFrame implements MouseListener{
 
     private JPanel panel;
     public Menu() {
+
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Menu Example");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,7 +49,8 @@ public class Menu extends JFrame implements MouseListener{
         switch(label.getText()) {
             case "Today's Weather":
                 // Open Today's Weather Window
-                System.out.println("Opening Today's Weather Window...");
+                panel.setVisible(false);
+                new TodayWeather(this);
                 break;
             case "Tommorrow's Weather":
                 // Open Tommorrow's Weather Window
@@ -118,6 +120,7 @@ public class Menu extends JFrame implements MouseListener{
         gbc.insets = new Insets(10, 0, 10, 0); // Adds 10 pixels of space above and below
         
         panel.add(label, gbc);
+
         }
 
 }
