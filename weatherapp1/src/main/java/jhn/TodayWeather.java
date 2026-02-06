@@ -9,28 +9,43 @@ public class TodayWeather extends JFrame implements MouseListener {
 
 	public JPanel todayPanel;
 
-    TodayWeather(JFrame parentFrame) {
+    TodayWeather(JFrame parentFrame, Weather weather) {
 
 		todayPanel = new JPanel(new GridBagLayout());
 		todayPanel.setBackground(Color.BLACK);
 		parentFrame.add(todayPanel);
 
 
-		JLabel zero = new JLabel();
-        labelCreator(zero, "12 AM", 300, 75,
-        Color.WHITE, new Font("Monospaced", Font.PLAIN, 24),true,0,0);
+        String labelTexts[] = {};
 
-		JLabel one = new JLabel();
-        labelCreator(one, "1 AM", 300, 75,
-        Color.WHITE, new Font("Monospaced", Font.PLAIN, 24),true,1,1);
+        for(int i = 0; i <= 24; i++){
+            if(i == 0){
+                labelTexts[i] = "12 AM";
+            }
+            else if(i > 0 && i <= 12){
+                labelTexts[i] = i + " AM";
+            }
+            else{
+                labelTexts[i] = (i - 12) + " PM";
+            }
+            System.out.println(" Label ");
+            System.out.println(labelTexts[i]);
+        }
 
-		JLabel two = new JLabel();
-        labelCreator(two, "2 AM", 300, 75,
-        Color.WHITE, new Font("Monospaced", Font.PLAIN, 24),true,0,2);
+        
+        
 
-		JLabel three = new JLabel();
-        labelCreator(three, "3 AM", 300, 75,
-        Color.WHITE, new Font("Monospaced", Font.PLAIN, 24),true,1,3);
+		// JLabel zero = new JLabel();
+        // labelCreator(zero, "12 AM " + weather.getTemp(0),true,0,0);
+
+		// JLabel one = new JLabel();
+        // labelCreator(one, "1 AM " + weather.getTemp(1),true,1,1);
+
+		// JLabel two = new JLabel();
+        // labelCreator(two, "2 AM " + weather.getTemp(2),true,0,2);
+
+		// JLabel three = new JLabel();
+        // labelCreator(three, "3 AM " + weather.getTemp(3),true,1,3);
 		
 		
 
@@ -38,12 +53,13 @@ public class TodayWeather extends JFrame implements MouseListener {
 
     }
 
-	public void labelCreator(JLabel label, String text,  int width, int height,Color textColor, Font font, boolean addMouseListener,int gridy,int gridx) {
+	public void labelCreator(JLabel label, String text, boolean addMouseListener,int gridy,int gridx) {
+       
         label = new JLabel(text, SwingConstants.CENTER);
-        label.setPreferredSize(new Dimension(width, height));
+        label.setPreferredSize(new Dimension(300, 75));
         label.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        label.setForeground(textColor);
-        label.setFont(font);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Monospaced", Font.PLAIN, 24));
         label.setBackground(Color.DARK_GRAY);
         if(addMouseListener) {
             label.addMouseListener(this);

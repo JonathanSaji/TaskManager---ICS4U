@@ -84,5 +84,9 @@ public class Weather {
         return "Temp: " + temperatures.get(slot) + " Time: " + time.get(slot) + " Latitude: " + dataObject.get("latitude") + " Longtitude: " + dataObject.get("longitude");
     }
 
+    public String getTemp(int time){
+        return temperatures.get(time) + " °C";
+    }
+
 
 }
