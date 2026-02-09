@@ -6,34 +6,17 @@ import java.awt.*;
 
 public class TodayWeather extends JFrame implements MouseListener {
 
-    public JPanel timePanel, todayPanel;
-    private JScrollPane scrollPane; // Added for navigation
+    public JPanel todayPanel;
 
     TodayWeather(JFrame parentFrame, Weather weather) {
 
-        todayPanel = new JPanel();
-        todayPanel.setLayout(null);
-        todayPanel.setSize(1920, 1080);
+        todayPanel = new JPanel(new GridBagLayout());
         todayPanel.setBackground(Color.BLACK);
+        todayPanel.setVisible(true);
         parentFrame.add(todayPanel);
         
-        // 1. Initialize timePanel with GridBagLayout
-        timePanel = new JPanel(new GridBagLayout());
-        timePanel.setBackground(Color.BLACK);
-
-        // 2. Wrap timePanel in a JScrollPane
-        scrollPane = new JScrollPane(timePanel);
-        // Position the scrollpane in the center of the screen
-        int scrollW = 1200;
-        int scrollH = 800;
-        scrollPane.setBounds(getMiddleX(scrollW), 100, scrollW, scrollH);
-        scrollPane.setBorder(null); // Keep it clean
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Make scrolling smooth
-        
-        todayPanel.add(scrollPane);
 
         String labelTexts[] = new String[24];
-
         for (int i = 0; i <= 23; i++) {
             if (i == 0) {
                 labelTexts[i] = "12 AM";
@@ -52,32 +35,39 @@ public class TodayWeather extends JFrame implements MouseListener {
             for (int j = 0; j < 6; j++) {
                 int currentIndex = j + offset;
                 // Reduced height to 100 so it actually fits reasonably
-                labelCreator(new JLabel(), labelTexts[currentIndex] + " " + weather.getTemp(currentIndex), true, j, i - 1, 250, 100);
+                labelCreator(new JLabel(), labelTexts[currentIndex] + " " + weather.getTemp(currentIndex), true, j, i - 1, 500, 200,currentIndex);
             }
         }
     }
 
-    public void labelCreator(JLabel label, String text, boolean addMouseListener, int gridy, int gridx, int width, int height) {
+    public void labelCreator(JLabel label, String text, boolean addMouseListener, int gridy, int gridx, int width, int height,int index) {
+        int endIndex[] = {2,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,2,2};
+
         label = new JLabel(text, SwingConstants.CENTER);
-        // Use setPreferredSize so GridBagLayout knows how big to make the cells
-        label.setPreferredSize(new Dimension(width, height));
-        label.setMinimumSize(new Dimension(width, height));
-        
-        label.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Gray looks cleaner on black
+        label.setPreferredSize(new Dimension(width,height));
+
+        if(Integer.parseInt(text.substring(0, endIndex[index])) == new CurrentTime().getHour()){
+            label.setBorder(BorderFactory.createLineBorder(Color.YELLOW,10)); 
+        }
+        else{
+            label.setBorder(BorderFactory.createLineBorder(Color.white, 10)); 
+        }
         label.setForeground(Color.WHITE);
-        label.setFont(new Font("Monospaced", Font.BOLD, 22));
+        label.setFont(new Font("Monospaced", Font.BOLD, 48));
         
         if (addMouseListener) {
             label.addMouseListener(this);
         }
 
+        System.out.println(Integer.parseInt(text.substring(0,  endIndex[index])) + " " + new CurrentTime().getHour());
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = gridx; 
         gbc.gridy = gridy; 
-        gbc.insets = new Insets(10, 10, 10, 10); // Spacing between "cards"
+        gbc.insets = new Insets(10, 0, 0, 10); // Spacing between "cards"
         gbc.fill = GridBagConstraints.BOTH;
 
-        timePanel.add(label, gbc);
+        todayPanel.add(label, gbc);
     }
 
     // --- Mouse Listener Events ---
@@ -110,4 +100,11 @@ public class TodayWeather extends JFrame implements MouseListener {
 
     public int getMiddleX(int sizeDiff){ return (1920 - sizeDiff) / 2; }
     public int getMiddleY(int sizeDiff){ return (1080 - sizeDiff) / 2; }
+
+
+
+
+
+
 }
+
