@@ -8,6 +8,8 @@ public class TodayWeather extends JFrame implements MouseListener {
 
     public JPanel todayPanel;
 
+    String labelTexts[] = new String[24];
+
     TodayWeather(JFrame parentFrame, Weather weather) {
 
         todayPanel = new JPanel(new GridBagLayout());
@@ -16,7 +18,7 @@ public class TodayWeather extends JFrame implements MouseListener {
         parentFrame.add(todayPanel);
         
 
-        String labelTexts[] = new String[24];
+
         for (int i = 0; i <= 23; i++) {
             if (i == 0) {
                 labelTexts[i] = "12 AM";
@@ -39,18 +41,17 @@ public class TodayWeather extends JFrame implements MouseListener {
             }
         }
 
-        
+
 
 
     }
 
     public void labelCreator(JLabel label, String text, boolean addMouseListener, int gridy, int gridx, int width, int height,int index) {
-        int endIndex[] = {2,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,2,2};
 
         label = new JLabel(text, SwingConstants.CENTER);
         label.setPreferredSize(new Dimension(width,height));
-
-        if(Integer.parseInt(text.substring(0, endIndex[index])) == new CurrentTime().getHour()){
+        System.out.println(text);
+        if(labelTexts[index].equals(new CurrentTime().getHour())){
             label.setBorder(BorderFactory.createLineBorder(Color.YELLOW,10)); 
         }
         else{
@@ -63,7 +64,7 @@ public class TodayWeather extends JFrame implements MouseListener {
             label.addMouseListener(this);
         }
 
-        System.out.println(Integer.parseInt(text.substring(0,  endIndex[index])) + " " + new CurrentTime().getHour());
+        
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = gridx; 

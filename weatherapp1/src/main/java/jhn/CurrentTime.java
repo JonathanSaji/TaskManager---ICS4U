@@ -1,6 +1,5 @@
 package jhn;
 import java.util.Calendar;
-import java.util.Date;
 public class CurrentTime {
 
     int currentHour;
@@ -10,15 +9,29 @@ public class CurrentTime {
         Calendar calender =  Calendar.getInstance();
 
         currentHour = calender.get(Calendar.HOUR_OF_DAY);
-        Date date = calender.getTime();
 
-        System.out.println(currentHour);
-        System.out.println(date.toString());
+        System.out.println(getHour());
     }       
 
 
-    public int getHour(){
-        return currentHour;
+    public String getHour(){
+        if(currentHour <= 11 && currentHour != 0){
+            return currentHour + " AM";
+        }
+        else if(currentHour == 0){
+            return "12 AM";
+        }
+        else if(currentHour == 12){
+            return "12 PM";
+        }
+        else{
+            return currentHour - 12 + " PM";
+        }
     }
 
+
+
+    public static void main(String[] args) {
+        new CurrentTime();
+    }
 }
