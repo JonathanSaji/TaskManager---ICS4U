@@ -52,19 +52,18 @@ public class settings extends JFrame implements MouseListener{
         };
 
 
-        componentCreator(0,0, celciusToFarenheit,null,false);
-        componentCreator(4, 0, celciusOrFarhenheit,null,false);
-        componentCreator(4, 1, new JLabel(), "Go Back",true);
+        componentCreator(0,0, celciusToFarenheit,false);
+        componentCreator(4, 0, celciusOrFarhenheit,false);
+        componentCreator(4, 1, new JLabel("Go Back",SwingConstants.CENTER),true);
     }
 
-    public void componentCreator(int gridx,int gridy, Component component,String text,boolean mouseListener){
+    public void componentCreator(int gridx,int gridy, Component component,boolean mouseListener){
 
         if(component instanceof JLabel){
             JLabel label = (JLabel)component;
             label.setForeground(Color.white);
             label.setFont((new Font("Monospaced", Font.PLAIN, 24)));    
-            if(text !=null){label.setText(text);}
-            if(mouseListener){label.addMouseListener(this);}
+            if(mouseListener){label.setBackground(Color.DARK_GRAY); ;label.addMouseListener(this);}
             
         }
         else if(component instanceof JButton){

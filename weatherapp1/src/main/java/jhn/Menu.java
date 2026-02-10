@@ -6,21 +6,26 @@ import java.awt.event.*;
 
 import java.awt.*;
 
+import java.time.LocalDate;
+
+
 public class Menu extends JFrame implements MouseListener {
 
     private JPanel structuredPanel, panel;
     private JLabel settings;
     private Weather weather;
+    private JFrame frame;
 
     public Menu(Weather weather) {
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Menu Example");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setFrame(this);
 
-        //intialize weather
+
+        // intialize weather
         this.weather = weather;
-        
 
         // has no layout has to be components have to be bound
         panel = new JPanel(null);
@@ -28,7 +33,7 @@ public class Menu extends JFrame implements MouseListener {
         this.add(panel);
 
         settings = new JLabel("Settings");
-        settings.setIcon(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\settingsLogo.png"));
+        settings.setIcon(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\settingsLogo.png"));
         settings.setForeground(Color.WHITE);
         settings.setBounds(0, 0, 100, 100);
         settings.addMouseListener(this);
@@ -75,15 +80,18 @@ public class Menu extends JFrame implements MouseListener {
                     // Open Today's Weather Window
                     structuredPanel.setVisible(false);
                     panel.setVisible(false);
-                    new TodayWeather(this, weather);
+
+                    new DisplayWeather(this, weather, LocalDate.now());
                     break;
                 case "Tommorrow's Weather":
                     // Open Tommorrow's Weather Window
-                    System.out.println("Opening Tommorrow's Weather Window...");
+                    structuredPanel.setVisible(false);
+                    panel.setVisible(false);
+                    new DisplayWeather(this, weather, LocalDate.now().plusDays(1));
                     break;
                 case "Pick a Date":
                     // Open Pick a Date Window
-                    System.out.println("Opening Pick a Date Window...");
+                    new CustomCalendarPopup(this, weather);
                     break;
                 case "Exit":
                     // Exit Application
@@ -91,10 +99,10 @@ public class Menu extends JFrame implements MouseListener {
                     System.exit(0);
                     break;
                 case "Settings":
-                        structuredPanel.setVisible(false);
-                        panel.setVisible(false);
-                        new settings(this);
-                        break;
+                    structuredPanel.setVisible(false);
+                    panel.setVisible(false);
+                    new settings(this);
+                    break;
                 default:
                     break;
             }
@@ -160,11 +168,23 @@ public class Menu extends JFrame implements MouseListener {
 
     }
 
-    public void setPanel(){
+    public void setPanel() {
         panel.setVisible(true);
         structuredPanel.setVisible(true);
     }
 
+    public void closePanel(){
+        panel.setVisible(false);
+        structuredPanel.setVisible(false);
+    }
+
+    public void setFrame(JFrame frame){
+         this.frame = frame;
+    }
+
+    public JFrame getFrame(){
+        return frame;
+    }
 
 }
 
