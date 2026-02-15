@@ -120,7 +120,12 @@ public class Weather {
     public String getTemperature(LocalDate date, int hour, boolean celcius) {
         String degree = WeatherApp.json.getBoolean("celcius") ? "°C" : "°F";
 
-        return getValue(temperatures, date, hour) + degree;
+        if(WeatherApp.json.getBoolean("celcius")){
+            return getValue(temperatures, date, hour) + degree;
+        }
+        else{
+            return (int)(Double.parseDouble(getValue(temperatures, date, hour)) * 1.8 + 32) + degree;
+        }
 
     }
 
@@ -152,7 +157,14 @@ public class Weather {
 
     public String getApparentTemp(LocalDate date, int hour, boolean celcius) {
         String degree = WeatherApp.json.getBoolean("celcius") ? "°C" : "°F";
-        return "Apparent Temperature: " + getValue(apparentTemp, date, hour) + degree;
+
+        if(WeatherApp.json.getBoolean("celcius")){
+            return "Apparent Temperature: " + getValue(apparentTemp, date, hour) + degree;
+        }
+        else{
+            return "Apparent Temperature: " + (int)(Double.parseDouble(getValue(apparentTemp, date, hour)) * 1.8 + 32) + degree;
+        }
+
     }
 
     public String getPrecipitation(LocalDate date, int hour) {

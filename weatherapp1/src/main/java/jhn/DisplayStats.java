@@ -111,7 +111,7 @@ public class DisplayStats implements MouseListener {
         label = new JLabel(text, SwingConstants.CENTER);
         label.setPreferredSize(new Dimension(width, height));
         label.setForeground(Color.WHITE);
-        label.setFont(new Font("Monospaced", Font.TYPE1_FONT, 35));
+        label.setFont(new Font("Monospaced", Font.TYPE1_FONT, 38));
         // make labels clickable only when requested
         if (mouseListener) {
             label.addMouseListener(this);

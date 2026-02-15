@@ -1,21 +1,20 @@
-package jhn;
+package jhn.location;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
-public class GetIP {
-    double latitude, longitude;
-    StringBuilder informationString;
+public class CurrentLocation {
+
     JSONObject dataObject;
 
-    public GetIP() {
-        // https://api.ipify.org/
+    public CurrentLocation() {
         try {
 
-            URL url = new URL("https://api.ipify.org/");
+            URL url = new URL("http://ip-api.com/json/" + new GetIP().getIP());
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -31,7 +30,7 @@ public class GetIP {
 
             } else {
 
-                informationString = new StringBuilder();
+                StringBuilder informationString = new StringBuilder();
                 Scanner scanner = new Scanner(url.openStream());
 
                 while (scanner.hasNext()) {
@@ -41,33 +40,28 @@ public class GetIP {
                 // close the scanner
                 scanner.close();
 
-                System.out.println("IP Address: " + informationString);
+                // Change 1: Parse as JSONObject, not JSONArray
+                JSONParser parse = new JSONParser();
+                dataObject = (JSONObject) parse.parse(String.valueOf(informationString));
+
+                System.out.println("Lat: " + getLat());
+                System.out.println("Lon: " + getLon());
             }
             // not the best way to catch but it works!
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
-    public String getIP(){
-            return informationString.toString();
-        }
+    public double getLat() {
+        return (double) dataObject.get("lat");
+    }
+
+    public double getLon() {
+        return (double) dataObject.get("lon");
+    }
 
     public static void main(String[] args) {
-        new GetIP();
+        new CurrentLocation();
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

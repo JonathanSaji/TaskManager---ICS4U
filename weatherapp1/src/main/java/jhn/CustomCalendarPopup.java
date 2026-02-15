@@ -126,6 +126,13 @@ public class CustomCalendarPopup extends JPanel {
             label.setFont(new Font("Monospaced", Font.BOLD, 20));
             label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+            if(weather.isThereTemp(currentMonth.atDay(day), 0)){
+                label.setForeground(Color.BLACK);
+            }
+            else{
+                label.setForeground(Color.LIGHT_GRAY);
+            }
+
             label.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

@@ -1,19 +1,22 @@
-package jhn;
+package jhn.location;    
+
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-public class CurrentLocation {
 
+public class GetIP {
+    double latitude, longitude;
+    StringBuilder informationString;
     JSONObject dataObject;
 
-    public CurrentLocation() {
+    public GetIP() {
+        // https://api.ipify.org/
         try {
 
-            URL url = new URL("http://ip-api.com/json/" + new GetIP().getIP());
+            URL url = new URL("https://api.ipify.org/");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -29,7 +32,7 @@ public class CurrentLocation {
 
             } else {
 
-                StringBuilder informationString = new StringBuilder();
+                informationString = new StringBuilder();
                 Scanner scanner = new Scanner(url.openStream());
 
                 while (scanner.hasNext()) {
@@ -39,28 +42,33 @@ public class CurrentLocation {
                 // close the scanner
                 scanner.close();
 
-                // Change 1: Parse as JSONObject, not JSONArray
-                JSONParser parse = new JSONParser();
-                dataObject = (JSONObject) parse.parse(String.valueOf(informationString));
-
-                System.out.println("Lat: " + getLat());
-                System.out.println("Lon: " + getLon());
+                System.out.println("IP Address: " + informationString);
             }
             // not the best way to catch but it works!
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
-    public double getLat() {
-        return (double) dataObject.get("lat");
-    }
-
-    public double getLon() {
-        return (double) dataObject.get("lon");
-    }
+    public String getIP(){
+            return informationString.toString();
+        }
 
     public static void main(String[] args) {
-        new CurrentLocation();
+        new GetIP();
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

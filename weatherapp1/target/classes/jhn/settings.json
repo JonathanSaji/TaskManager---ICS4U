@@ -1,17 +1,1 @@
-{
-    "rain": false,
-    "soilMoisture": false,
-    "apparentTemp": false,
-    "latitude": -5.0,
-    "cloudCover": false,
-    "celcius": false,
-    "dewPoint": false,
-    "precipitation": false,
-    "showers": false,
-    "soilTemp": false,
-    "surfacePressure": false,
-    "humidity": false,
-    "windSpeed": false,
-    "PressureMSL": false,
-    "longitude": -110.0
-}
+{"rain":true,"soilMoisture":false,"apparentTemp":true,"latitude":45.0,"cloudCover":true,"celcius":true,"dewPoint":true,"precipitation":true,"showers":true,"soilTemp":false,"surfacePressure":true,"humidity":true,"windSpeed":true,"PressureMSL":true,"longitude":-75.0}

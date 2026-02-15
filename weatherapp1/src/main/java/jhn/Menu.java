@@ -16,6 +16,7 @@ public class Menu extends JFrame implements MouseListener {
     private Weather weather;
     private JFrame frame;
     private CustomCalendarPopup popupCalendar;
+    JLabel background;
 
     public Menu(Weather weather) {
 
@@ -25,12 +26,14 @@ public class Menu extends JFrame implements MouseListener {
         this.setUndecorated(true);
         this.setResizable(false);
 
-        // Get screen device
-        GraphicsDevice device = GraphicsEnvironment
-                .getLocalGraphicsEnvironment()
-                .getDefaultScreenDevice();
+        WeatherApp.getSongHandler().play();
 
-                device.setFullScreenWindow(this);
+         // Get screen device
+         GraphicsDevice device = GraphicsEnvironment
+         .getLocalGraphicsEnvironment()
+         .getDefaultScreenDevice();
+
+         device.setFullScreenWindow(this);
 
         setFrame(this);
 
@@ -43,44 +46,79 @@ public class Menu extends JFrame implements MouseListener {
         panel.setBackground(Color.BLACK);
         this.add(panel);
 
-        settings = new JLabel("Settings");
-        settings.setIcon(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\settingsLogo.png"));
-        settings.setForeground(Color.WHITE);
-        settings.setBounds(0, 0, 100, 100);
-        settings.addMouseListener(this);
-        settings.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        panel.add(settings);
-
         // has a layout
-        structuredPanel = new JPanel(new GridBagLayout());
+        structuredPanel = new JPanel();
         structuredPanel.setBackground(Color.BLACK);
         structuredPanel.setBounds(WeatherApp.getMiddleX(1900), WeatherApp.getMiddleY(1080), 1900, 1080);
 
         panel.add(structuredPanel);
 
+        background = new JLabel(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\scenery.gif"));
+        background.setLayout(new GridBagLayout());
+        background.setBounds(0, 0, 1900, 1080);
+        structuredPanel.add(background);
+
         int amp = 4;
         JLabel title = new JLabel();
         labelCreator(title, "Weather App", 500 * amp, 100 * amp,
-                Color.WHITE, new Font("Monospaced", Font.BOLD, 48*amp), false, 0);
+                Color.BLACK, new Font("Monospaced", Font.BOLD, 48*amp), false, 0);
 
         JLabel todayLabel = new JLabel();
         labelCreator(todayLabel, "Today's Weather", 300 * amp, 75 * amp,
-                Color.WHITE, new Font("Monospaced", Font.PLAIN, 24* amp), true, 1);
+                Color.BLACK, new Font("Monospaced", Font.PLAIN, 24* amp), true, 1);
 
         JLabel tommorrowLabel = new JLabel();
         labelCreator(tommorrowLabel, "Tommorrow's Weather", 300 * amp, 75 * amp,
-                Color.WHITE, new Font("Monospaced", Font.PLAIN, 24* amp), true, 2);
+                Color.BLACK, new Font("Monospaced", Font.PLAIN, 24* amp), true, 2);
 
         JLabel PickDateLabel = new JLabel();
         labelCreator(PickDateLabel, "Pick a Date", 300 * amp, 75 * amp,
-                Color.WHITE, new Font("Monospaced", Font.PLAIN, 24* amp), true, 3);
+                Color.BLACK, new Font("Monospaced", Font.PLAIN, 24* amp), true, 3);
 
         JLabel exitLabel = new JLabel();
         labelCreator(exitLabel, "Exit", 300 * amp, 75 * amp,
-                Color.WHITE, new Font("Monospaced", Font.PLAIN, 24* amp), true, 4);
+                Color.BLACK, new Font("Monospaced", Font.PLAIN, 24* amp), true, 4);
+
+        settings = new JLabel(" ");
+        settings.setIcon(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\settingsLogo.png"));
+
+        labelCreator(settings, null, 0, 0, null, null, true, 5);
+
+
 
         repaint();
     }
+
+    public void labelCreator(JLabel label, String text, int width, int height, Color textColor, Font font,
+        boolean addMouseListener, int row) {
+        if(text != null){
+            label = new JLabel(text, SwingConstants.CENTER);
+        }
+        label.setPreferredSize(new Dimension(width*5, height*5));
+
+        label.setForeground(textColor);
+        label.setFont(font);
+        label.setBackground(Color.DARK_GRAY);
+        if (addMouseListener) {
+            label.addMouseListener(this);
+            label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        }
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0; // Always in the same column to stay centered
+        gbc.gridy = row; // Increments to move down
+        gbc.insets = new Insets(10, 0, 10, 0); // Adds 10 pixels of space above and below
+
+        background.add(label, gbc);
+
+    }
+
+
+
+
+
+
+
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -119,7 +157,7 @@ public class Menu extends JFrame implements MouseListener {
                     System.out.println("Exiting Application...");
                     System.exit(0);
                     break;
-                case "Settings":
+                case " ":
                     structuredPanel.setVisible(false);
                     panel.setVisible(false);
                     if(popupCalendar != null){
@@ -162,31 +200,10 @@ public class Menu extends JFrame implements MouseListener {
         if (e.getComponent() instanceof JLabel) {
             JLabel label = (JLabel) e.getComponent();
             if (label != settings) {
-                label.setForeground(Color.WHITE);
+                label.setForeground(Color.BLACK);
             }
 
         }
-
-    }
-
-    public void labelCreator(JLabel label, String text, int width, int height, Color textColor, Font font,
-            boolean addMouseListener, int row) {
-        label = new JLabel(text, SwingConstants.CENTER);
-        label.setPreferredSize(new Dimension(width*5, height*5));
-
-        label.setForeground(textColor);
-        label.setFont(font);
-        label.setBackground(Color.DARK_GRAY);
-        if (addMouseListener) {
-            label.addMouseListener(this);
-            label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        }
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; // Always in the same column to stay centered
-        gbc.gridy = row; // Increments to move down
-        gbc.insets = new Insets(10, 0, 10, 0); // Adds 10 pixels of space above and below
-
-        structuredPanel.add(label, gbc);
 
     }
 
@@ -205,7 +222,7 @@ public class Menu extends JFrame implements MouseListener {
     }
 
     public JFrame getFrame(){
-        return frame;
+         return frame;
     }
 
 }

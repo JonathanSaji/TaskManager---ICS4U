@@ -3,9 +3,11 @@ package jhn;
 public class WeatherApp {
     public static Menu menu;
     public static JsonHandler json;
+    public static SongHandler song;
 
     public static void main(String[] args) throws Exception {
 
+        song = new SongHandler("weatherapp1/src/main/java/jhn/resources/KCDII.wav");
         json = new JsonHandler("weatherapp1\\src\\main\\java\\jhn\\settings.json");
 
         menu = new Menu(new Weather(getLat(), getLong()));
@@ -27,6 +29,10 @@ public class WeatherApp {
 
     public static int getMiddleY(int sizeDiff) {
         return (1080 - sizeDiff) / 2;
+    }
+
+    public static SongHandler getSongHandler() {
+        return song;
     }
 
     public static double getLat() {

@@ -57,7 +57,7 @@ public class DisplayWeather extends JFrame implements MouseListener {
         label = new JLabel(text, SwingConstants.CENTER);
         label.setPreferredSize(new Dimension(width,height));
     if(useIndex){
-        if(labelTexts[index].equals(new CurrentTime().getHour())){
+        if(labelTexts[index].equals(new CurrentTime().getHour()) && date.equals(LocalDate.now())){
             label.setBorder(BorderFactory.createLineBorder(Color.YELLOW,5)); 
         }
         else{

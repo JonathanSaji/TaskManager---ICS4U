@@ -54,12 +54,13 @@ public class ConfigureStats extends JPanel implements MouseListener {
         longLabel = new JLabel(" Longitude: " + WeatherApp.getLong(), SwingConstants.CENTER);
 
         componentCreator(0, 0, new JLabel("Go Back", SwingConstants.CENTER), true, "nol");
-        componentCreator(1, 0, new JLabel("- LAT", SwingConstants.CENTER), true, "nol");
-        componentCreator(2, 0, new JLabel("+ LAT", SwingConstants.CENTER), true, "nol");
-        componentCreator(3, 0, new JLabel("- LONG", SwingConstants.CENTER), true, "nol");
-        componentCreator(4, 0, new JLabel("+ LONG", SwingConstants.CENTER), true, "nol");
-        componentCreator(5, 0, latLabel, true, "nol");
-        componentCreator(6, 0, longLabel, true, "nol");
+        componentCreator(1, 0, new JLabel("Current Location", SwingConstants.CENTER), true, "nol");
+        componentCreator(2, 0, new JLabel("- LAT", SwingConstants.CENTER), true, "nol");
+        componentCreator(3, 0, new JLabel("+ LAT", SwingConstants.CENTER), true, "nol");
+        componentCreator(4, 0, new JLabel("- LONG", SwingConstants.CENTER), true, "nol");
+        componentCreator(5, 0, new JLabel("+ LONG", SwingConstants.CENTER), true, "nol");
+        componentCreator(6, 0, latLabel, true, "nol");
+        componentCreator(7, 0, longLabel, true, "nol");
 
         // prepare listener before creating buttons so they get it
         listener = e -> {
