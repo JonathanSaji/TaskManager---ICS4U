@@ -1,18 +1,28 @@
 package jhn;
 
+import jhn.location.CurrentLocation;
+
 public class WeatherApp {
     public static Menu menu;
     public static JsonHandler json;
     public static SongHandler song;
+    public static CurrentLocation currentLocation;
+    public static BackgroundHandler backgroundHandler;
 
     public static void main(String[] args) throws Exception {
 
         song = new SongHandler("weatherapp1/src/main/java/jhn/resources/KCDII.wav");
         json = new JsonHandler("weatherapp1\\src\\main\\java\\jhn\\settings.json");
+        
+        Weather weather = new Weather(getLat(), getLong());
+        //Weather weather = new Weather(-78.45, 106.87);
 
-        menu = new Menu(new Weather(getLat(), getLong()));
+        backgroundHandler = new BackgroundHandler(weather);
+
+        menu = new Menu(weather);
         menu.setVisible(true);
 
+        currentLocation = new CurrentLocation();
     }
 
     // overloaded constructed so we can use static helper methods
@@ -55,11 +65,22 @@ public class WeatherApp {
         json.setValue("longitude", lon);
     }
 
+    public static double getCurrentLong() {
+        return currentLocation.getLong();
+    }
+    public static double getCurrentLat() {
+        return currentLocation.getLat();
+    }
+
     public static Menu getMenu() {
         return menu;
     }
 
     public static JsonHandler getJsonHandler() {
         return json;
+    }
+
+    public static BackgroundHandler getBackgroundHandler() {
+        return backgroundHandler;
     }
 }

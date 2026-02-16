@@ -45,7 +45,7 @@ public class CurrentLocation {
                 dataObject = (JSONObject) parse.parse(String.valueOf(informationString));
 
                 System.out.println("Lat: " + getLat());
-                System.out.println("Lon: " + getLon());
+                System.out.println("Long: " + getLong());
             }
             // not the best way to catch but it works!
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class CurrentLocation {
         return (double) dataObject.get("lat");
     }
 
-    public double getLon() {
+    public double getLong() {
         return (double) dataObject.get("lon");
     }
 

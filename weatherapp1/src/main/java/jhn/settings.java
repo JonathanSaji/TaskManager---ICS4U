@@ -25,7 +25,7 @@ public class settings extends JFrame implements MouseListener {
         parentFrame.add(settingsPanel);
 
        // background = new JLabel(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\scenery.gif"));
-        background = new JLabel(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\scenery.gif"));
+        background = new JLabel(new ImageIcon(WeatherApp.getBackgroundHandler().getBackgroundPath()));
         background.setOpaque(true);
         background.setBounds(0, 0, 1920, 1080);
         background.setLayout(new GridBagLayout());
@@ -150,7 +150,7 @@ public class settings extends JFrame implements MouseListener {
         // Invoked when the mouse exits a component
         if (e.getComponent() instanceof JLabel) {
             JLabel label = (JLabel) e.getComponent();
-            label.setForeground(Color.WHITE);
+            label.setForeground(Color.BLACK);
 
         }
     }

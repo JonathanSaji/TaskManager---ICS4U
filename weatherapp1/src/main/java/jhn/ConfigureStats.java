@@ -1,6 +1,7 @@
 package jhn;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -50,11 +51,11 @@ public class ConfigureStats extends JPanel implements MouseListener {
             System.out.println(statNames[i] + ": " + showStats[i]);
         }
 
-        latLabel = new JLabel("Latitude: " + WeatherApp.getLat(), SwingConstants.CENTER);
-        longLabel = new JLabel(" Longitude: " + WeatherApp.getLong(), SwingConstants.CENTER);
+        latLabel = new JLabel("Lat: " + (int)WeatherApp.getLat(), SwingConstants.CENTER);
+        longLabel = new JLabel(" Long: " + (int)WeatherApp.getLong(), SwingConstants.CENTER);
 
         componentCreator(0, 0, new JLabel("Go Back", SwingConstants.CENTER), true, "nol");
-        componentCreator(1, 0, new JLabel("Current Location", SwingConstants.CENTER), true, "nol");
+        componentCreator(1, 0, new JLabel("Current", SwingConstants.CENTER), true, "nol");
         componentCreator(2, 0, new JLabel("- LAT", SwingConstants.CENTER), true, "nol");
         componentCreator(3, 0, new JLabel("+ LAT", SwingConstants.CENTER), true, "nol");
         componentCreator(4, 0, new JLabel("- LONG", SwingConstants.CENTER), true, "nol");
@@ -96,7 +97,7 @@ public class ConfigureStats extends JPanel implements MouseListener {
                 label.addMouseListener(this);
             }
             if(key.equals("nol")) {
-                label.setBounds(gridx * 250, 0, 400, 100);
+                label.setBounds(gridx * 250, 0, 150, 100);
                 label.setForeground(Color.BLACK);
                 add(label);
             }
@@ -138,19 +139,25 @@ public class ConfigureStats extends JPanel implements MouseListener {
                 break;
             case "- LAT":
                 WeatherApp.setLat(WeatherApp.getLat() - 5);
-                latLabel.setText("Lat: " + WeatherApp.getLat());
+                latLabel.setText("Lat: " + (int)WeatherApp.getLat());
                 break;
             case "+ LAT":
                 WeatherApp.setLat(WeatherApp.getLat() + 5);
-                latLabel.setText("Lat: " + WeatherApp.getLat());
+                latLabel.setText("Lat: " + (int)WeatherApp.getLat());
                 break;
             case "- LONG":
                 WeatherApp.setLong(WeatherApp.getLong() - 5);
-                longLabel.setText("Long: " + WeatherApp.getLong());
+                longLabel.setText("Long: " + (int)WeatherApp.getLong());
                 break;
             case "+ LONG":
                 WeatherApp.setLong(WeatherApp.getLong() + 5);
-                longLabel.setText("Long: " + WeatherApp.getLong());
+                longLabel.setText("Long: " + (int)WeatherApp.getLong());
+                break;
+            case "Current":
+                WeatherApp.setLat(WeatherApp.getCurrentLat());
+                WeatherApp.setLong(WeatherApp.getCurrentLong());
+                latLabel.setText("Lat: " + (int)WeatherApp.getLat());
+                longLabel.setText("Long: " + (int)WeatherApp.getLong());
                 break;
             default:
                 break;

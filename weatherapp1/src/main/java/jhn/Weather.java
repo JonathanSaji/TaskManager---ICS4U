@@ -27,7 +27,7 @@ public class Weather {
     "https://api.open-meteo.com/v1/forecast?"
     + "latitude=" + latitude
     + "&longitude=" + longitude
-    + "&models=gfs_seamless"
+    + "&models=gem_regional"
     + "&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,"
     + "precipitation,rain,showers,snowfall,pressure_msl,surface_pressure,cloud_cover,"
     + "wind_speed_10m,soil_temperature_0_to_10cm,soil_moisture_0_to_10cm,is_day,"
@@ -117,6 +117,31 @@ public class Weather {
     Temprature
     */
     // NEW METHOD: Get temperature for a specific date and hour
+
+    public int getAverageTempVal(LocalDate date) {
+        int sum = 0;
+        int count = 0;
+        for (int i = 0; i < 24; i++) { // include hour 0..23
+            String val = getValue(temperatures, date, i);
+            if (val == null || val.equals("N/A")) continue;
+            try {
+                // getValue already returns rounded integers or numeric strings; preserve sign
+                int temp = Integer.parseInt(val);
+                sum += temp;
+                count++;
+            } catch (NumberFormatException e) {
+                try {
+                    double d = Double.parseDouble(val);
+                    sum += (int) Math.round(d);
+                    count++;
+                } catch (NumberFormatException ignored) {
+                    // skip unparsable values
+                }
+            }
+        }
+        return count == 0 ? 0 : sum / count;
+    }
+
     public String getTemperature(LocalDate date, int hour, boolean celcius) {
         String degree = WeatherApp.json.getBoolean("celcius") ? "°C" : "°F";
 

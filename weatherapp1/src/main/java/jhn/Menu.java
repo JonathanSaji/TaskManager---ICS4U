@@ -53,7 +53,7 @@ public class Menu extends JFrame implements MouseListener {
 
         panel.add(structuredPanel);
 
-        background = new JLabel(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\scenery.gif"));
+        background = new JLabel(new ImageIcon(WeatherApp.getBackgroundHandler().getBackgroundPath()));
         background.setLayout(new GridBagLayout());
         background.setBounds(0, 0, 1900, 1080);
         structuredPanel.add(background);
