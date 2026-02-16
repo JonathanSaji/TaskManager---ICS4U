@@ -92,5 +92,9 @@ public class WeatherApp {
         WeatherApp.menu = menu;
     }
 
+    public static SongHandler getMusicHandler() {
+        return song;
+    }
+
 
 }

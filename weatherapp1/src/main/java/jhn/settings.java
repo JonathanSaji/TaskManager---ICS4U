@@ -11,6 +11,7 @@ public class settings extends JFrame implements MouseListener {
     ActionListener listener;
     JFrame parentFrame;
     boolean celciusFarhenheit = WeatherApp.json.getBoolean("celcius");
+    boolean musicOn = WeatherApp.json.getBoolean("music");
 
     public settings(JFrame parentFrame) {
 
@@ -24,7 +25,8 @@ public class settings extends JFrame implements MouseListener {
         settingsPanel.setBackground(Color.WHITE);
         parentFrame.add(settingsPanel);
 
-       // background = new JLabel(new ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\scenery.gif"));
+        // background = new JLabel(new
+        // ImageIcon("weatherapp1\\src\\main\\java\\jhn\\resources\\scenery.gif"));
         background = new JLabel(new ImageIcon(WeatherApp.getBackgroundHandler().getBackgroundPath()));
         background.setOpaque(true);
         background.setBounds(0, 0, 1920, 1080);
@@ -40,14 +42,24 @@ public class settings extends JFrame implements MouseListener {
          * 1f,true
          */
 
-        JButton celciusToFarenheit;
-        JLabel celciusOrFarhenheit = new JLabel("", SwingConstants.CENTER);
+        JButton celciusToFarenheit, musicButton;
+        JLabel celciusOrFarhenheit = new JLabel("", SwingConstants.CENTER),
+                musicLabel = new JLabel("", SwingConstants.CENTER);
+
         if (celciusFarhenheit) {
             celciusToFarenheit = new AnimationToggle(1f, true);
             celciusOrFarhenheit.setText("Celcius");
         } else {
             celciusToFarenheit = new AnimationToggle(0f, false);
             celciusOrFarhenheit.setText("Fahrenheit");
+        }
+
+        if (musicOn) {
+            musicButton = new AnimationToggle(1f, true);
+            musicLabel.setText("Music On");
+        } else {
+            musicButton = new AnimationToggle(0f, false);
+            musicLabel.setText("Music Off");
         }
 
         // One ActionListener for all buttons
@@ -57,7 +69,16 @@ public class settings extends JFrame implements MouseListener {
                 celciusFarhenheit = !celciusFarhenheit;
                 celciusOrFarhenheit.setText(celciusFarhenheit ? "Celcius" : "Farhenheit");
                 WeatherApp.json.setValue("celcius", celciusFarhenheit);
+            } else if (source == musicButton) {
+                musicOn = !musicOn;
+                musicLabel.setText(musicOn ? "Music On" : "Music Off");
+                WeatherApp.json.setValue("music", musicOn);
 
+                if (WeatherApp.json.getBoolean("music")) {
+                    WeatherApp.getMusicHandler().play();
+                } else {
+                    WeatherApp.getMusicHandler().stop();
+                }
             }
 
             background.repaint();
@@ -65,8 +86,13 @@ public class settings extends JFrame implements MouseListener {
 
         componentCreator(0, 0, celciusToFarenheit, false);
         componentCreator(4, 0, celciusOrFarhenheit, false);
-        componentCreator(4, 1, new JLabel("Go Back", SwingConstants.CENTER), true);
-        componentCreator(4, 3, new JLabel("Configure Stats", SwingConstants.CENTER), true);
+
+        componentCreator(0, 1, musicButton, false);
+        componentCreator(4, 1, musicLabel, false);
+
+        componentCreator(4, 3, new JLabel("Go Back", SwingConstants.CENTER), true);
+        componentCreator(4, 4, new JLabel("Configure Stats", SwingConstants.CENTER), true);
+        
         background.repaint();
     }
 
@@ -84,8 +110,7 @@ public class settings extends JFrame implements MouseListener {
         } else if (component instanceof JButton) {
             JButton button = (JButton) component;
             button.addActionListener(listener);
-            button.setForeground(Color.BLACK);    
-
+            button.setForeground(Color.BLACK);
 
         }
 
@@ -96,7 +121,6 @@ public class settings extends JFrame implements MouseListener {
         gbc.fill = GridBagConstraints.BOTH;
         background.add(component, gbc);
     }
-
 
     /*
      * Mouse Listener methods
@@ -115,7 +139,7 @@ public class settings extends JFrame implements MouseListener {
                     break;
                 case "Configure Stats":
                     settingsPanel.setVisible(false);
-                    new ConfigureStats(parentFrame,WeatherApp.getJsonHandler());
+                    new ConfigureStats(parentFrame, WeatherApp.getJsonHandler());
                     break;
                 default:
 
