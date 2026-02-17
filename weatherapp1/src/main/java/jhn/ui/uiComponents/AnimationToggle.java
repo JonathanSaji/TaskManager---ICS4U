@@ -10,8 +10,8 @@ public class AnimationToggle extends JButton {
     private boolean selected;
     private float location; // 0 is left (off), 1 is right (on)
     private Timer timer;
-    private Color onColor = new Color(0, 255, 0);
-    private Color offColor = new Color(255, 255, 255);
+    private Color onColor = new Color(255, 255, 255);
+    private Color offColor = new Color(211, 211, 211);
 
     public AnimationToggle(float locat, boolean select) {
 
