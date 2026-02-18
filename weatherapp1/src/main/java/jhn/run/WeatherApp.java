@@ -32,9 +32,7 @@ public class WeatherApp {
         currentLocation = new CurrentLocation();
     }
 
-    // overloaded constructed so we can use static helper methods
-    public WeatherApp() {
-    }
+    // overloaded constructed so we can use static helper methodsd
 
     /*
      * Global Helper Variables

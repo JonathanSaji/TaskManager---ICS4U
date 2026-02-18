@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Time",
+            "request": "launch",
+            "mainClass": "jhn.Time",
+            "projectName": "weatherapp1"
+        },
+        {
+            "type": "java",
+            "name": "DisplayMorning",
+            "request": "launch",
+            "mainClass": "jhn.ui.DisplayMorning",
+            "projectName": "weatherapp1"
+        },
+        {
+            "type": "java",
             "name": "DisplayAfternoon",
             "request": "launch",
             "mainClass": "jhn.ui.DisplayAfternoon",

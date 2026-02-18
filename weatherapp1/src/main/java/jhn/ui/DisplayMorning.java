@@ -16,14 +16,14 @@ import jhn.API.Weather;
 import jhn.handlers.JsonHandler;
 import jhn.run.WeatherApp;
 
-public class DisplayAfternoon {
+public class DisplayMorning {
     Weather weather;
     JPanel background;
     JLabel[] panels = new JLabel[12]; // Array to store 12 hour panels
     JsonHandler json = WeatherApp.json;
     int count = 0; // Start at 0 not -1
 
-    public DisplayAfternoon(JFrame parentFrame, Weather weather, LocalDate date) {
+    public DisplayMorning(JFrame parentFrame, Weather weather, LocalDate date) {
         this.weather = weather;
         background = new JPanel(new GridBagLayout()) {
             private final ImageIcon icon = new ImageIcon(
@@ -48,15 +48,16 @@ public class DisplayAfternoon {
         }
 
         // Add hour + weather labels inside each panel
-        for (int i = 12; i < 24; i++) {
-            int hour12 = i % 12;
-            if (hour12 == 0)
+        for (int i = 0; i < 12; i++) {
+            int hour12 = i ;
+            if (hour12 == 0){
                 hour12 = 12;
+            }
             String amPm = i < 12 ? "AM" : "PM";
             String hourLabel = hour12 + " " + amPm;
 
             addHourData(
-                    panels[i - 12],
+                    panels[i],
                     hourLabel,
                     weather.getTemperature(date, i, true),
                     weather.getApparentTemp(date, i, true),
@@ -104,7 +105,6 @@ public class DisplayAfternoon {
 
         // Always shown
         addLabel(panel, createDataLabel(hour), gbc, row++);
-        addLabel(panel, createDataLabel(temp), gbc, row++);
 
         LocalDateTime date = LocalDateTime.now();
         Time time =  new Time(hour,date);
@@ -114,6 +114,7 @@ public class DisplayAfternoon {
             panel.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
         }
 
+        addLabel(panel, createDataLabel(temp), gbc, row++);
 
         // Toggleable
         if (WeatherApp.json.getBoolean("apparentTemp"))

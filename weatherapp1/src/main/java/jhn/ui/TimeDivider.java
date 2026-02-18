@@ -29,7 +29,7 @@ public class TimeDivider extends JFrame implements MouseListener {
         // Use a JPanel with custom paintComponent for the background gif
         background = new JPanel(null) {
             private final ImageIcon icon = new ImageIcon(
-                    "weatherapp1\\src\\main\\java\\jhn\\resources\\springBackground.gif");
+                    WeatherApp.getBackgroundHandler().getBackgroundPath());
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -135,6 +135,10 @@ public class TimeDivider extends JFrame implements MouseListener {
             if (label == afternoonJLabel) {
                 background.setVisible(false);
                 new DisplayAfternoon(parentFrame, weather, date);
+            }
+            else if(label == morningJLabel){
+                background.setVisible(false);
+                new DisplayMorning(parentFrame, weather, date);
             }
         }
 
