@@ -122,14 +122,6 @@ public class Menu extends JFrame implements MouseListener {
 
     }
 
-
-
-
-
-
-
-
-
     @Override
     public void mouseClicked(MouseEvent e) {
         // Invoked when the mouse button has been clicked (pressed and released) on a
@@ -144,7 +136,7 @@ public class Menu extends JFrame implements MouseListener {
                     if(popupCalendar != null){
                         popupCalendar.closePopup();
                     }
-                    new DisplayWeather(this, weather, LocalDate.now());
+                    new TimeDivider(this, weather, LocalDate.now());
                     break;
                 case "Tommorrow's Weather":
                     // Open Tommorrow's Weather Window
@@ -153,7 +145,7 @@ public class Menu extends JFrame implements MouseListener {
                     if(popupCalendar != null){
                         popupCalendar.closePopup();
                     }
-                    new DisplayWeather(this, weather, LocalDate.now().plusDays(1));
+                    new TimeDivider(this, weather, LocalDate.now().plusDays(1));
                     break;
                 case "Pick a Date":
                     // Open Pick a Date Window

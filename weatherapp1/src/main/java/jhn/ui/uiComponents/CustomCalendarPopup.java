@@ -4,8 +4,7 @@ import javax.swing.*;
 
 import jhn.API.Weather;
 import jhn.run.WeatherApp;
-import jhn.ui.DisplayWeather;
-
+import jhn.ui.TimeDivider;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -146,7 +145,7 @@ public class CustomCalendarPopup extends JPanel {
 
                     if (weather.isThereTemp(selectedDate, 0)) {
                         WeatherApp.getMenu().closePanel();
-                        new DisplayWeather(parentFrame, weather, selectedDate);
+                        new TimeDivider(parentFrame, weather, selectedDate);
                         closePopup();
                     }
                 }

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DisplayAfternoon",
+            "request": "launch",
+            "mainClass": "jhn.ui.DisplayAfternoon",
+            "projectName": "weatherapp1"
+        },
+        {
+            "type": "java",
             "name": "TimeDivider",
             "request": "launch",
             "mainClass": "jhn.ui.TimeDivider",
